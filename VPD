@@ -1,0 +1,295 @@
+#include "DHT.h"
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+#include <Servo.h>
+#include "RTClib.h"
+
+#define DHTPIN 2
+#define DHTTYPE DHT22
+#define RSWPin 4
+#define LSWPin 5
+#define RUWPin 6
+#define LUWPin 7
+#define RainPin 8
+#define WaterPin A0
+#define PhotoPin A2
+#define C_Fan 22
+#define V_Fan 24
+#define MotorPin 26
+#define LightPin 28
+
+int RSW_value = 0;
+int LSW_value = 0;
+int RUW_value = 0;
+int LUW_value = 0;
+
+DHT dht(DHTPIN, DHTTYPE);
+LiquidCrystal_I2C lcd(0x3F, 16, 2);
+RTC_DS3231 rtc;
+
+Servo RSW;    //Right Side Window
+Servo LSW;    //Left Side Window
+Servo RUW;    //Right Up Window
+Servo LUW;    //Left Up Window
+
+void setup() {
+  Serial.begin(9600);
+  Serial1.begin(9600);
+
+  RSW.attach(RSWPin);
+  LSW.attach(LSWPin);
+  RUW.attach(RUWPin);
+  LUW.attach(LUWPin);
+
+  pinMode(RainPin, INPUT);
+  pinMode(C_Fan, OUTPUT);
+  pinMode(V_Fan, OUTPUT);
+  pinMode(MotorPin, OUTPUT);
+  pinMode(LightPin, OUTPUT);
+
+  dht.begin();
+  if (! rtc.begin()) {
+    Serial.println("Couldn't find RTC");
+    while (1);
+  }
+
+  if (rtc.lostPower()) {
+    Serial.println("RTC lost power, lets set the time!");
+    rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+  } else {
+    rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+  }
+
+  lcd.init();
+  lcd.backlight();
+  lcd.setCursor(0, 0);
+  lcd.print("Jeju Nat'l Univ.");
+  lcd.setCursor(0, 1);
+  lcd.print("Vegetable Lab!");
+  delay(1000);
+  RSW.write(0);
+  delay(1000);
+  LSW.write(180);
+  delay(1000);
+  RUW.write(0);
+  delay(1000);
+  LUW.write(180);
+  delay(1000);
+}
+
+void loop() {
+  float humi = dht.readHumidity();
+  float temp = dht.readTemperature();
+  float DP = dewPoint(temp, humi);  //노점온도
+  float AH =  ((6.112 * exp((17.67 * temp) / (temp + 245.5)) * humi * 18.02) / ((273.15 + temp) * 100 * 0.08314));   //절대습도
+  float Psat =  (6.112 * exp((17.67 * temp) / (temp + 243.5))) / 10; //포화수증기압 (단위 : kPa)
+  float P =  (6.112 * exp((17.67 * temp) / (temp + 243.5)) * (humi / 100)) / 10;  //수증기압 (단위 : kPa)
+  float VPD = (Psat - P); //수증기압차 (단위 : kPa)
+  DateTime now = rtc.now();
+  int Rain = digitalRead(RainPin);
+  int WaterValue = analogRead(WaterPin);
+  int Water = map(WaterValue, 1023, 317, 0, 100);
+  int Photo = analogRead(PhotoPin);
+
+  if (Water >= 100) {
+    Water = 100;
+  }
+  if (Water <= 0) {
+    Water = 0;
+  }
+//  RSW.attach(RSWPin);
+//  LSW.attach(LSWPin);
+//  RUW.attach(RUWPin);
+//  LUW.attach(LUWPin);
+
+  if (Rain == HIGH) {        //No raining
+    if ((VPD <= 0.4) || (VPD > 1.4)) {
+      digitalWrite(C_Fan, HIGH);
+      RSW.write(60);
+      delay(1000);
+      RSW_value == 1;
+      LSW.write(130);
+      delay(1000);
+      LSW_value == 1;
+      RUW.write(60);
+      delay(1000);
+      RUW_value == 1;
+      LUW.write(130);
+      delay(1000);
+      LUW_value == 1;
+    }
+
+    if ((VPD > 0.4) && (VPD <= 1.4)) {
+      if (RSW_value == 1) {
+        RSW.write(60);
+        delay(1000);
+        RSW_value == 1;
+      } else {
+        RSW.write(0);
+        delay(1000);
+        RSW_value == 0;
+      }
+      if (LSW_value == 1) {
+        LSW.write(130);
+        delay(1000);
+        LSW_value == 1;
+      } else {
+        LSW.write(180);
+        delay(1000);
+        LSW_value == 0;
+      }
+      if (RUW_value == 1) {
+        RUW.write(60);
+        delay(1000);
+        RUW_value == 1;
+      } else {
+        RUW.write(0);
+        delay(1000);
+        RUW_value = 0;
+      }
+      if (LUW_value == 1) {
+        LUW.write(130);
+        delay(1000);
+        LUW_value == 1;
+      } else {
+        LUW.write(180);
+        delay(1000);
+        LUW_value == 0;
+      }
+    }
+  } else {   //Raining
+    if ((VPD <= 0.4) || (VPD > 1.4)) {
+      digitalWrite(C_Fan, HIGH);
+      RSW.write(60);
+      delay(1000);
+      RSW_value == 1;
+      LSW.write(130);
+      delay(1000);
+      LSW_value == 1;
+      RUW.write(0);
+      delay(1000);
+      RUW_value == 0;
+      LUW.write(180);
+      delay(1000);
+      LUW_value == 0;
+    }
+
+    if ((VPD > 0.4) && (VPD <= 1.4)) {
+      if (RSW_value == 1) {
+        RSW.write(60);
+        delay(1000);
+        RSW_value == 1;
+      } else {
+        RSW.write(0);
+        delay(1000);
+        RSW_value == 0;
+      }
+      if (LSW_value == 1) {
+        LSW.write(130);
+        delay(1000);
+        LSW_value == 1;
+      } else {
+        LSW.write(180);
+        delay(1000);
+        LSW_value == 0;
+      }
+      if (RUW_value == 1) {
+        RUW.write(0);
+        delay(1000);
+        RUW_value == 0;
+      } else {
+        RUW.write(0);
+        delay(1000);
+        RUW_value = 0;
+      }
+      if (LUW_value == 1) {
+        LUW.write(180);
+        delay(1000);
+        LUW_value == 0;
+      } else {
+        LUW.write(180);
+        delay(1000);
+        LUW_value == 0;
+      }
+    }
+  }
+
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print(now.year());
+  lcd.print("/");
+  lcd.print(now.month());
+  lcd.print("/");
+  lcd.print(now.day());
+  lcd.setCursor(0, 1);
+  lcd.print(now.hour());
+  lcd.print(" hour: ");
+  lcd.print(now.minute());
+  lcd.print(" min");
+  delay(2000);
+
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Temp : ");
+  lcd.print(temp);
+  lcd.print(" oC");
+  lcd.setCursor(0, 1);
+  lcd.print("Humi : ");
+  lcd.print(humi);
+  lcd.print(" %");
+  delay(2000);
+
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("DewT : ");
+  lcd.print(DP);
+  lcd.print(" oC");
+  lcd.setCursor(0, 1);
+  lcd.print("VPD : ");
+  lcd.print(VPD);
+  lcd.print(" kPa");
+  delay(2000);
+
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Water : ");
+  lcd.print(Water);
+  lcd.print(" %");
+  lcd.setCursor(0, 1);
+  lcd.print("Photo : ");
+  lcd.print(Photo);
+  delay(2000);
+
+  if (Rain == HIGH) {
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("No Raining");
+  } else {
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("Raining");
+  }
+
+  RSW.detach();
+  LSW.detach();
+  RUW.detach();
+  LUW.detach();
+}
+
+float dewPoint(float temp, float humi)
+{
+  // (1) Saturation Vapor Pressure = ESGG(T)
+  float RATIO = 373.15 / (273.15 + temp);
+  float RHS = -7.90298 * (RATIO - 1);
+  RHS += 5.02808 * log10(RATIO);
+  RHS += -1.3816e-7 * (pow(10, (11.344 * (1 - 1 / RATIO ))) - 1) ;
+  RHS += 8.1328e-3 * (pow(10, (-3.49149 * (RATIO - 1))) - 1) ;
+  RHS += log10(1013.246);
+
+  // factor -3 is to adjust units - Vapor Pressure SVP * humidity
+  float VP = pow(10, RHS - 3) * humi;
+
+  // (2) DEWPOINT = F(Vapor Pressure)
+  float T = log(VP / 0.61078); // temp var
+  return (241.88 * T) / (17.558 - T);
+}
