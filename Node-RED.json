@@ -12,8 +12,8 @@
         "z": "77ca4fd5313dd382",
         "name": "",
         "serial": "c1103d13aef36fa3",
-        "x": 130,
-        "y": 200,
+        "x": 110,
+        "y": 140,
         "wires": [
             [
                 "e7f2d634de0592d9"
@@ -47,8 +47,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 360,
-        "y": 240,
+        "x": 380,
+        "y": 140,
         "wires": [
             [
                 "dcfd4c0c585ac933",
@@ -68,7 +68,7 @@
         "finalize": "",
         "libs": [],
         "x": 560,
-        "y": 180,
+        "y": 100,
         "wires": [
             [
                 "59f40d70b33c17ed",
@@ -83,8 +83,8 @@
         "name": "",
         "group": "ddb9acc26e9bbb3f",
         "order": 1,
-        "width": 6,
-        "height": 6,
+        "width": 7,
+        "height": 7,
         "gtype": "gage",
         "title": "Temperature",
         "label": "oC",
@@ -99,7 +99,7 @@
         "seg1": "25",
         "seg2": "30",
         "x": 750,
-        "y": 120,
+        "y": 100,
         "wires": []
     },
     {
@@ -114,7 +114,7 @@
         "finalize": "",
         "libs": [],
         "x": 560,
-        "y": 280,
+        "y": 180,
         "wires": [
             [
                 "af6c65b5f2514453",
@@ -128,9 +128,9 @@
         "z": "77ca4fd5313dd382",
         "name": "",
         "group": "ddb9acc26e9bbb3f",
-        "order": 2,
-        "width": 6,
-        "height": 6,
+        "order": 3,
+        "width": 7,
+        "height": 7,
         "gtype": "wave",
         "title": "Humidity",
         "label": "%",
@@ -145,7 +145,7 @@
         "seg1": "30",
         "seg2": "50",
         "x": 740,
-        "y": 260,
+        "y": 180,
         "wires": []
     },
     {
@@ -154,8 +154,8 @@
         "z": "77ca4fd5313dd382",
         "name": "",
         "group": "ddb9acc26e9bbb3f",
-        "order": 9,
-        "width": 6,
+        "order": 2,
+        "width": 12,
         "height": 7,
         "label": "Temperature",
         "chartType": "line",
@@ -167,50 +167,7 @@
         "ymin": "0",
         "ymax": "50",
         "removeOlder": 1,
-        "removeOlderPoints": "",
-        "removeOlderUnit": "60",
-        "cutout": 0,
-        "useOneColor": false,
-        "useUTC": false,
-        "colors": [
-            "#1f77b4",
-            "#aec7e8",
-            "#ff7f0e",
-            "#2ca02c",
-            "#98df8a",
-            "#d62728",
-            "#ff9896",
-            "#9467bd",
-            "#c5b0d5"
-        ],
-        "outputs": 1,
-        "useDifferentColor": false,
-        "x": 750,
-        "y": 220,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "43c90d98d8bcbe63",
-        "type": "ui_chart",
-        "z": "77ca4fd5313dd382",
-        "name": "",
-        "group": "ddb9acc26e9bbb3f",
-        "order": 10,
-        "width": 6,
-        "height": 7,
-        "label": "Humidity",
-        "chartType": "line",
-        "legend": "false",
-        "xformat": "HH:mm:ss",
-        "interpolate": "linear",
-        "nodata": "",
-        "dot": false,
-        "ymin": "0",
-        "ymax": "100",
-        "removeOlder": 1,
-        "removeOlderPoints": "",
+        "removeOlderPoints": "60",
         "removeOlderUnit": "3600",
         "cutout": 0,
         "useOneColor": false,
@@ -228,8 +185,53 @@
         ],
         "outputs": 1,
         "useDifferentColor": false,
+        "className": "",
+        "x": 750,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "43c90d98d8bcbe63",
+        "type": "ui_chart",
+        "z": "77ca4fd5313dd382",
+        "name": "",
+        "group": "ddb9acc26e9bbb3f",
+        "order": 4,
+        "width": 12,
+        "height": 7,
+        "label": "Humidity",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": 1,
+        "removeOlderPoints": "60",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
         "x": 740,
-        "y": 320,
+        "y": 220,
         "wires": [
             []
         ]
@@ -495,136 +497,6 @@
         "height": 1
     },
     {
-        "id": "12c1a18045ef04fe",
-        "type": "ui_spacer",
-        "z": "77ca4fd5313dd382",
-        "name": "spacer",
-        "group": "ddb9acc26e9bbb3f",
-        "order": 3,
-        "width": 2,
-        "height": 1
-    },
-    {
-        "id": "9e03451ff0c3cb7a",
-        "type": "ui_spacer",
-        "z": "77ca4fd5313dd382",
-        "name": "spacer",
-        "group": "ddb9acc26e9bbb3f",
-        "order": 4,
-        "width": 2,
-        "height": 1
-    },
-    {
-        "id": "ab86fb4a2507bc1d",
-        "type": "ui_spacer",
-        "z": "77ca4fd5313dd382",
-        "name": "spacer",
-        "group": "ddb9acc26e9bbb3f",
-        "order": 5,
-        "width": 2,
-        "height": 1
-    },
-    {
-        "id": "eda3febf315338c8",
-        "type": "ui_spacer",
-        "z": "77ca4fd5313dd382",
-        "name": "spacer",
-        "group": "ddb9acc26e9bbb3f",
-        "order": 6,
-        "width": 2,
-        "height": 1
-    },
-    {
-        "id": "fe78e364148e0e7b",
-        "type": "ui_spacer",
-        "z": "77ca4fd5313dd382",
-        "name": "spacer",
-        "group": "ddb9acc26e9bbb3f",
-        "order": 7,
-        "width": 2,
-        "height": 1
-    },
-    {
-        "id": "6faea3e2bdaafbcd",
-        "type": "ui_spacer",
-        "z": "77ca4fd5313dd382",
-        "name": "spacer",
-        "group": "ddb9acc26e9bbb3f",
-        "order": 8,
-        "width": 2,
-        "height": 1
-    },
-    {
-        "id": "dd2d5b4308519020",
-        "type": "ui_spacer",
-        "z": "77ca4fd5313dd382",
-        "name": "spacer",
-        "group": "ddb9acc26e9bbb3f",
-        "order": 11,
-        "width": 2,
-        "height": 1
-    },
-    {
-        "id": "dd450abc67d21ca4",
-        "type": "ui_spacer",
-        "z": "77ca4fd5313dd382",
-        "name": "spacer",
-        "group": "ddb9acc26e9bbb3f",
-        "order": 12,
-        "width": 2,
-        "height": 1
-    },
-    {
-        "id": "d2cee2cb3f93d0f0",
-        "type": "ui_spacer",
-        "z": "77ca4fd5313dd382",
-        "name": "spacer",
-        "group": "ddb9acc26e9bbb3f",
-        "order": 13,
-        "width": 2,
-        "height": 1
-    },
-    {
-        "id": "ba36c89993336ffe",
-        "type": "ui_spacer",
-        "z": "77ca4fd5313dd382",
-        "name": "spacer",
-        "group": "ddb9acc26e9bbb3f",
-        "order": 14,
-        "width": 2,
-        "height": 1
-    },
-    {
-        "id": "587753d0acdc7fa8",
-        "type": "ui_spacer",
-        "z": "77ca4fd5313dd382",
-        "name": "spacer",
-        "group": "ddb9acc26e9bbb3f",
-        "order": 15,
-        "width": 2,
-        "height": 1
-    },
-    {
-        "id": "f1dc95654ed3acb1",
-        "type": "ui_spacer",
-        "z": "77ca4fd5313dd382",
-        "name": "spacer",
-        "group": "ddb9acc26e9bbb3f",
-        "order": 16,
-        "width": 2,
-        "height": 1
-    },
-    {
-        "id": "514019f946575d66",
-        "type": "ui_spacer",
-        "z": "77ca4fd5313dd382",
-        "name": "spacer",
-        "group": "ddb9acc26e9bbb3f",
-        "order": 17,
-        "width": 2,
-        "height": 1
-    },
-    {
         "id": "c1103d13aef36fa3",
         "type": "serial-port",
         "serialport": "COM3",
@@ -650,14 +522,14 @@
         "tab": "fa77f82c0a076646",
         "order": 1,
         "disp": true,
-        "width": "14",
+        "width": 19,
         "collapse": false,
         "className": ""
     },
     {
         "id": "fa77f82c0a076646",
         "type": "ui_tab",
-        "name": "Temp_RH_JSON",
+        "name": "GreenHouse",
         "icon": "dashboard",
         "order": 5,
         "disabled": false,
