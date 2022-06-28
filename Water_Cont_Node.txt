@@ -1,0 +1,464 @@
+[
+    {
+        "id": "7a72842ba591b566",
+        "type": "tab",
+        "label": "플로우 2",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "53b2a40e79a6915c",
+        "type": "serial in",
+        "z": "7a72842ba591b566",
+        "name": "",
+        "serial": "90c2d770290e3da8",
+        "x": 159.28691864013672,
+        "y": 214.67895317077637,
+        "wires": [
+            [
+                "615f9e3320bed082",
+                "e264e980023b54f3",
+                "1dcb07526c189102",
+                "32128d771c8a5881"
+            ]
+        ]
+    },
+    {
+        "id": "615f9e3320bed082",
+        "type": "function",
+        "z": "7a72842ba591b566",
+        "name": "",
+        "func": "var output = msg.payload.split(\",\");\nvar WaterValue = parseFloat(output[0]);\nvar msg = {payload:WaterValue};\nreturn [msg];\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 100,
+        "wires": [
+            [
+                "701f19fb03178dfe"
+            ]
+        ]
+    },
+    {
+        "id": "701f19fb03178dfe",
+        "type": "ui_gauge",
+        "z": "7a72842ba591b566",
+        "name": "",
+        "group": "c4d9f2eed9613d1a",
+        "order": 2,
+        "width": 6,
+        "height": 5,
+        "gtype": "gage",
+        "title": "WaterValue",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "1024",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 550,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "e264e980023b54f3",
+        "type": "function",
+        "z": "7a72842ba591b566",
+        "name": "",
+        "func": "var output = msg.payload.split(\",\");\nvar WC = parseFloat(output[1]);\nvar msg = {payload:WC};\nreturn [msg];\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 160,
+        "wires": [
+            [
+                "caac7f4c944a3c93",
+                "6c54f2c349a1c7c7"
+            ]
+        ]
+    },
+    {
+        "id": "caac7f4c944a3c93",
+        "type": "ui_gauge",
+        "z": "7a72842ba591b566",
+        "name": "",
+        "group": "c4d9f2eed9613d1a",
+        "order": 23,
+        "width": 6,
+        "height": 5,
+        "gtype": "wave",
+        "title": "Water Content",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 540,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "b7a43eb530393649",
+        "type": "serial out",
+        "z": "7a72842ba591b566",
+        "name": "",
+        "serial": "90c2d770290e3da8",
+        "x": 760,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "0648bd738ae6e2d3",
+        "type": "ui_switch",
+        "z": "7a72842ba591b566",
+        "name": "",
+        "label": "Automation (자동유무)",
+        "tooltip": "",
+        "group": "c4d9f2eed9613d1a",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "decouple": "true",
+        "topic": "payload",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "x",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "y",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 560,
+        "y": 280,
+        "wires": [
+            [
+                "b7a43eb530393649"
+            ]
+        ]
+    },
+    {
+        "id": "26bfc13ce0e2478e",
+        "type": "ui_switch",
+        "z": "7a72842ba591b566",
+        "name": "",
+        "label": "Pump (펌프)",
+        "tooltip": "",
+        "group": "c4d9f2eed9613d1a",
+        "order": 5,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "decouple": "true",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "c",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "d",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 530,
+        "y": 340,
+        "wires": [
+            [
+                "b7a43eb530393649"
+            ]
+        ]
+    },
+    {
+        "id": "1dcb07526c189102",
+        "type": "function",
+        "z": "7a72842ba591b566",
+        "name": "",
+        "func": "var output = msg.payload.split(\",\");\nvar Auto = parseFloat(output[2]);\nvar msg = {payload:Auto};\n\nif(msg.payload == 1){\n    msg.payload = 'x';\n} \nelse {\n    msg.payload = 'y';\n}\nreturn [msg];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 280,
+        "wires": [
+            [
+                "0648bd738ae6e2d3"
+            ]
+        ]
+    },
+    {
+        "id": "32128d771c8a5881",
+        "type": "function",
+        "z": "7a72842ba591b566",
+        "name": "",
+        "func": "var output = msg.payload.split(\",\");\nvar PumpValue = parseFloat(output[3]);\nvar msg = {payload:PumpValue};\n\nif(msg.payload == 1){\n    msg.payload = 'c';\n} \nelse {\n    msg.payload = 'd';\n}\nreturn [msg];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 340,
+        "wires": [
+            [
+                "26bfc13ce0e2478e"
+            ]
+        ]
+    },
+    {
+        "id": "6c54f2c349a1c7c7",
+        "type": "ui_chart",
+        "z": "7a72842ba591b566",
+        "name": "",
+        "group": "c4d9f2eed9613d1a",
+        "order": 24,
+        "width": 10,
+        "height": 5,
+        "label": "Water Content",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 540,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7ab0b2cbc76d4943",
+        "type": "ui_spacer",
+        "z": "7a72842ba591b566",
+        "name": "spacer",
+        "group": "c4d9f2eed9613d1a",
+        "order": 8,
+        "width": 6,
+        "height": 1
+    },
+    {
+        "id": "03ad32551628da8c",
+        "type": "ui_spacer",
+        "z": "7a72842ba591b566",
+        "name": "spacer",
+        "group": "c4d9f2eed9613d1a",
+        "order": 11,
+        "width": 6,
+        "height": 1
+    },
+    {
+        "id": "5a9a571fabd49e7b",
+        "type": "ui_spacer",
+        "z": "7a72842ba591b566",
+        "name": "spacer",
+        "group": "c4d9f2eed9613d1a",
+        "order": 12,
+        "width": 6,
+        "height": 1
+    },
+    {
+        "id": "ac319b11900b66bc",
+        "type": "ui_spacer",
+        "z": "7a72842ba591b566",
+        "name": "spacer",
+        "group": "c4d9f2eed9613d1a",
+        "order": 13,
+        "width": 6,
+        "height": 1
+    },
+    {
+        "id": "b17560da4c4e5513",
+        "type": "ui_spacer",
+        "z": "7a72842ba591b566",
+        "name": "spacer",
+        "group": "c4d9f2eed9613d1a",
+        "order": 14,
+        "width": 6,
+        "height": 1
+    },
+    {
+        "id": "0be4b8497bf30c7a",
+        "type": "ui_spacer",
+        "z": "7a72842ba591b566",
+        "name": "spacer",
+        "group": "c4d9f2eed9613d1a",
+        "order": 15,
+        "width": 6,
+        "height": 1
+    },
+    {
+        "id": "cfbef585fc8b6794",
+        "type": "ui_spacer",
+        "z": "7a72842ba591b566",
+        "name": "spacer",
+        "group": "c4d9f2eed9613d1a",
+        "order": 18,
+        "width": 6,
+        "height": 1
+    },
+    {
+        "id": "5504556976c2102b",
+        "type": "ui_spacer",
+        "z": "7a72842ba591b566",
+        "name": "spacer",
+        "group": "c4d9f2eed9613d1a",
+        "order": 19,
+        "width": 6,
+        "height": 1
+    },
+    {
+        "id": "bc9c79f0ac813975",
+        "type": "ui_spacer",
+        "z": "7a72842ba591b566",
+        "name": "spacer",
+        "group": "c4d9f2eed9613d1a",
+        "order": 20,
+        "width": 6,
+        "height": 1
+    },
+    {
+        "id": "da7ec9cb98a0fbb8",
+        "type": "ui_spacer",
+        "z": "7a72842ba591b566",
+        "name": "spacer",
+        "group": "c4d9f2eed9613d1a",
+        "order": 21,
+        "width": 6,
+        "height": 1
+    },
+    {
+        "id": "9e37f1fe2da77724",
+        "type": "ui_spacer",
+        "z": "7a72842ba591b566",
+        "name": "spacer",
+        "group": "c4d9f2eed9613d1a",
+        "order": 22,
+        "width": 6,
+        "height": 1
+    },
+    {
+        "id": "748927fa658742d0",
+        "type": "ui_spacer",
+        "z": "7a72842ba591b566",
+        "name": "spacer",
+        "group": "c4d9f2eed9613d1a",
+        "order": 25,
+        "width": 6,
+        "height": 1
+    },
+    {
+        "id": "0a8c6012d64b4555",
+        "type": "ui_spacer",
+        "z": "7a72842ba591b566",
+        "name": "spacer",
+        "group": "c4d9f2eed9613d1a",
+        "order": 26,
+        "width": 6,
+        "height": 1
+    },
+    {
+        "id": "b7b8cb78f9205ec9",
+        "type": "ui_spacer",
+        "z": "7a72842ba591b566",
+        "name": "spacer",
+        "group": "c4d9f2eed9613d1a",
+        "order": 27,
+        "width": 6,
+        "height": 1
+    },
+    {
+        "id": "94863da0e5ebcf74",
+        "type": "ui_spacer",
+        "z": "7a72842ba591b566",
+        "name": "spacer",
+        "group": "c4d9f2eed9613d1a",
+        "order": 28,
+        "width": 6,
+        "height": 1
+    },
+    {
+        "id": "90c2d770290e3da8",
+        "type": "serial-port",
+        "serialport": "COM15",
+        "serialbaud": "9600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "c4d9f2eed9613d1a",
+        "type": "ui_group",
+        "name": "Group 1",
+        "tab": "e67b4b8ae48f742d",
+        "order": 1,
+        "disp": true,
+        "width": 22
+    },
+    {
+        "id": "e67b4b8ae48f742d",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
