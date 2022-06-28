@@ -1,0 +1,155 @@
+[
+    {
+        "id": "8da14d94d846371a",
+        "type": "tab",
+        "label": "플로우 2",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "057fa991ae3bb436",
+        "type": "function",
+        "z": "8da14d94d846371a",
+        "name": "",
+        "func": "var output = msg.payload.split(\",\");\nvar temp = parseFloat(output[0]);\nvar msg = {payload:temp};\nreturn [msg];\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 260,
+        "wires": [
+            [
+                "2afc0a800f6bf137"
+            ]
+        ]
+    },
+    {
+        "id": "0bf5133ae5cfe55c",
+        "type": "function",
+        "z": "8da14d94d846371a",
+        "name": "",
+        "func": "var output = msg.payload.split(\",\");\nvar RH = parseFloat(output[1]);\nvar msg = {payload:RH};\nreturn [msg];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 380,
+        "wires": [
+            [
+                "0c603cbee1cc07bb"
+            ]
+        ]
+    },
+    {
+        "id": "296f7639575c54e8",
+        "type": "serial in",
+        "z": "8da14d94d846371a",
+        "name": "",
+        "serial": "90c2d770290e3da8",
+        "x": 117.28691101074219,
+        "y": 315.678955078125,
+        "wires": [
+            [
+                "057fa991ae3bb436",
+                "0bf5133ae5cfe55c"
+            ]
+        ]
+    },
+    {
+        "id": "2afc0a800f6bf137",
+        "type": "ui_gauge",
+        "z": "8da14d94d846371a",
+        "name": "",
+        "group": "ddb9acc26e9bbb3f",
+        "order": 1,
+        "width": 8,
+        "height": 8,
+        "gtype": "gage",
+        "title": "Temperature",
+        "label": "oC",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 490,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "0c603cbee1cc07bb",
+        "type": "ui_gauge",
+        "z": "8da14d94d846371a",
+        "name": "",
+        "group": "ddb9acc26e9bbb3f",
+        "order": 2,
+        "width": 9,
+        "height": 8,
+        "gtype": "wave",
+        "title": "Humidity",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 480,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "90c2d770290e3da8",
+        "type": "serial-port",
+        "serialport": "COM15",
+        "serialbaud": "9600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "ddb9acc26e9bbb3f",
+        "type": "ui_group",
+        "name": "Environmental Condition",
+        "tab": "fa77f82c0a076646",
+        "order": 1,
+        "disp": true,
+        "width": 15,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "fa77f82c0a076646",
+        "type": "ui_tab",
+        "name": "GreenHouse",
+        "icon": "dashboard",
+        "order": 5,
+        "disabled": false,
+        "hidden": false
+    }
+]
