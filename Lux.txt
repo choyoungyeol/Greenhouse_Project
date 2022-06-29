@@ -1,0 +1,45 @@
+[
+    {
+        "id": "59567d21c351f3c5",
+        "type": "ui_gauge",
+        "z": "7e1465520da9dd1a",
+        "name": "",
+        "group": "06fd8b1d9d46587d",
+        "order": 1,
+        "width": 10,
+        "height": 7,
+        "gtype": "gage",
+        "title": "Photo",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "300",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 710,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "06fd8b1d9d46587d",
+        "type": "ui_group",
+        "name": "Group 1",
+        "tab": "b056518a1e7d01b7",
+        "order": 1,
+        "disp": true,
+        "width": 10
+    },
+    {
+        "id": "b056518a1e7d01b7",
+        "type": "ui_tab",
+        "name": "Tab 1",
+        "icon": "dashboard",
+        "order": 1
+    }
+]
