@@ -18,7 +18,7 @@ const int LowTemp = 20;
 const int HighTemp = 30;
 
 Sensirion tempSensor = Sensirion(dataPin, clockPin);
-LiquidCrystal_I2C lcd(0x27, 20, 4);
+LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 void setup()
 {
