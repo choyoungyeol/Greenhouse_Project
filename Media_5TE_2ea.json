@@ -1,0 +1,430 @@
+[
+    {
+        "id": "91c129c69d0f5c90",
+        "type": "tab",
+        "label": "플로우 2",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "6f3bfd545cfc9c5a",
+        "type": "function",
+        "z": "91c129c69d0f5c90",
+        "name": "",
+        "func": "var output = msg.payload.split(\",\");\nvar No = parseFloat(output[0]);\n\nif (No==\"1\") {\nvar WC = parseFloat(output[1]);\nvar msg = {payload:WC};\nreturn [msg];\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 120,
+        "wires": [
+            [
+                "2df9774fa4ca0f91"
+            ]
+        ]
+    },
+    {
+        "id": "28da407c2e2ecc9d",
+        "type": "function",
+        "z": "91c129c69d0f5c90",
+        "name": "",
+        "func": "var output = msg.payload.split(\",\");\nvar No = parseFloat(output[0]);\n\nif (No==\"1\") {\nvar EC = parseFloat(output[2]);\nvar msg = {payload:EC};\nreturn [msg];\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 180,
+        "wires": [
+            [
+                "d108b60bd47d18a1"
+            ]
+        ]
+    },
+    {
+        "id": "2df9774fa4ca0f91",
+        "type": "ui_gauge",
+        "z": "91c129c69d0f5c90",
+        "name": "",
+        "group": "96ebb46a2d99c4d3",
+        "order": 3,
+        "width": 6,
+        "height": 5,
+        "gtype": "wave",
+        "title": "Water Content_1",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 530,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "d108b60bd47d18a1",
+        "type": "ui_gauge",
+        "z": "91c129c69d0f5c90",
+        "name": "",
+        "group": "96ebb46a2d99c4d3",
+        "order": 4,
+        "width": 6,
+        "height": 5,
+        "gtype": "wave",
+        "title": "EC_1",
+        "label": "dS/m",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "3000",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 490,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "e8e55805b5dbdab0",
+        "type": "serial in",
+        "z": "91c129c69d0f5c90",
+        "name": "",
+        "serial": "90c2d770290e3da8",
+        "x": 117.28691101074219,
+        "y": 315.678955078125,
+        "wires": [
+            [
+                "6f3bfd545cfc9c5a",
+                "28da407c2e2ecc9d",
+                "f87b21f3eb2a73f1",
+                "bc432fa9bae5b652",
+                "d7fc1194c49fef64",
+                "5251f79ed3974a8d",
+                "36ffab4bbf0551be"
+            ]
+        ]
+    },
+    {
+        "id": "f87b21f3eb2a73f1",
+        "type": "function",
+        "z": "91c129c69d0f5c90",
+        "name": "",
+        "func": "var output = msg.payload.split(\",\");\nvar No = parseFloat(output[0]);\n\nif (No==\"1\") {\nvar Temp = parseFloat(output[3]);\nvar msg = {payload:Temp};\nreturn [msg];\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 260,
+        "wires": [
+            [
+                "8f2ddd462707ed2f"
+            ]
+        ]
+    },
+    {
+        "id": "8f2ddd462707ed2f",
+        "type": "ui_gauge",
+        "z": "91c129c69d0f5c90",
+        "name": "",
+        "group": "96ebb46a2d99c4d3",
+        "order": 5,
+        "width": 6,
+        "height": 5,
+        "gtype": "gage",
+        "title": "Root_Zone Temperature_1",
+        "label": "oC",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "60",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 560,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "c912da20488e78d7",
+        "type": "ui_gauge",
+        "z": "91c129c69d0f5c90",
+        "name": "",
+        "group": "96ebb46a2d99c4d3",
+        "order": 8,
+        "width": 6,
+        "height": 5,
+        "gtype": "wave",
+        "title": "Water Content_2",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 530,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "bc432fa9bae5b652",
+        "type": "function",
+        "z": "91c129c69d0f5c90",
+        "name": "",
+        "func": "var output = msg.payload.split(\",\");\nvar No = parseFloat(output[0]);\n\nif (No==\"2\") {\nvar WC = parseFloat(output[1]);\nvar msg = {payload:WC};\nreturn [msg];\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 420,
+        "wires": [
+            [
+                "c912da20488e78d7"
+            ]
+        ]
+    },
+    {
+        "id": "d7fc1194c49fef64",
+        "type": "function",
+        "z": "91c129c69d0f5c90",
+        "name": "",
+        "func": "var output = msg.payload.split(\",\");\nvar No = parseFloat(output[0]);\n\nif (No==\"2\") {\nvar EC = parseFloat(output[2]);\nvar msg = {payload:EC};\nreturn [msg];\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 480,
+        "wires": [
+            [
+                "2410490143ea043f"
+            ]
+        ]
+    },
+    {
+        "id": "5251f79ed3974a8d",
+        "type": "function",
+        "z": "91c129c69d0f5c90",
+        "name": "",
+        "func": "var output = msg.payload.split(\",\");\nvar No = parseFloat(output[0]);\n\nif (No==\"2\") {\nvar Temp = parseFloat(output[3]);\nvar msg = {payload:Temp};\nreturn [msg];\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 540,
+        "wires": [
+            [
+                "c127c45daf6aec24"
+            ]
+        ]
+    },
+    {
+        "id": "2410490143ea043f",
+        "type": "ui_gauge",
+        "z": "91c129c69d0f5c90",
+        "name": "",
+        "group": "96ebb46a2d99c4d3",
+        "order": 9,
+        "width": 6,
+        "height": 5,
+        "gtype": "wave",
+        "title": "EC_2",
+        "label": "dS/m",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "3000",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 490,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "c127c45daf6aec24",
+        "type": "ui_gauge",
+        "z": "91c129c69d0f5c90",
+        "name": "",
+        "group": "96ebb46a2d99c4d3",
+        "order": 10,
+        "width": 6,
+        "height": 5,
+        "gtype": "gage",
+        "title": "Root_Zone Temperature_2",
+        "label": "oC",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "60",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 560,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "97e64ee20eae465b",
+        "type": "ui_text",
+        "z": "91c129c69d0f5c90",
+        "group": "96ebb46a2d99c4d3",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "name": "",
+        "label": "Measurement_1",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 330,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "ed6435e9fa401e5f",
+        "type": "ui_text",
+        "z": "91c129c69d0f5c90",
+        "group": "96ebb46a2d99c4d3",
+        "order": 6,
+        "width": 6,
+        "height": 1,
+        "name": "",
+        "label": "Measurement_2",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 320,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "088f953c5750de97",
+        "type": "file",
+        "z": "91c129c69d0f5c90",
+        "name": "",
+        "filename": "D://Data/Water.csv",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 870,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "36ffab4bbf0551be",
+        "type": "function",
+        "z": "91c129c69d0f5c90",
+        "name": "",
+        "func": "var newDate = new Date();\nvar date = newDate.toLocaleDateString();\nvar time = newDate.toLocaleTimeString('en-US', { hour12: false});\n\nmsg.payload = date + \"-\" + time + \",\" + msg.payload;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 320,
+        "wires": [
+            [
+                "088f953c5750de97"
+            ]
+        ]
+    },
+    {
+        "id": "38ad1bc4e65485b5",
+        "type": "ui_spacer",
+        "z": "91c129c69d0f5c90",
+        "name": "spacer",
+        "group": "96ebb46a2d99c4d3",
+        "order": 2,
+        "width": 12,
+        "height": 1
+    },
+    {
+        "id": "065eade701a6a299",
+        "type": "ui_spacer",
+        "z": "91c129c69d0f5c90",
+        "name": "spacer",
+        "group": "96ebb46a2d99c4d3",
+        "order": 7,
+        "width": 12,
+        "height": 1
+    },
+    {
+        "id": "96ebb46a2d99c4d3",
+        "type": "ui_group",
+        "name": "Group 1",
+        "tab": "6ad067b77e165004",
+        "order": 1,
+        "disp": true,
+        "width": 18
+    },
+    {
+        "id": "90c2d770290e3da8",
+        "type": "serial-port",
+        "serialport": "COM12",
+        "serialbaud": "9600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "6ad067b77e165004",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
