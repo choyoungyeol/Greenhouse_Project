@@ -23,3 +23,8 @@ Node-RED
 Node-RED (Media_5TE_2ea.json
 
 ![그림1](https://user-images.githubusercontent.com/60500365/235871330-23d4d4aa-5f47-4b32-82ba-d1a8bde9d3dd.png)
+
+Temp_RH_Time_LED_Water_LCD.json
+
+![test](https://github.com/choyoungyeol/Greenhouse_Project/assets/60500365/d9e1b022-9fa8-4b77-abad-219e1e4ab1dc)
+
