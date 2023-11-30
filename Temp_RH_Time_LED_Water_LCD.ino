@@ -76,16 +76,19 @@ void loop () {
       digitalWrite(Pump, HIGH);
       delay(2000);
       n = n + 1;
+      Pump_value = 1;
     }
   } else {
     digitalWrite(Pump, LOW);
     delay(10000);
     n = 0;
+    Pump_value = 0;
   }
 
   if (Water > Target_Water_high) {
     digitalWrite(Pump, LOW);
     n = 0;
+    Pump_value = 0;
   }
 
 
@@ -135,4 +138,14 @@ void loop () {
     lcd.print("Light OFF");
   }
   delay(5000);
+
+  Serial.print(temp);
+  Serial.print(", ");
+  Serial.print(humi);
+  Serial.print(", ");
+  Serial.print(Water);
+  Serial.print(", ");
+  Serial.print(Pump_value);
+  Serial.print(", ");
+  Serial.println(Light_value);
 }
