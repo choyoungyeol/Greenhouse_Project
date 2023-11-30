@@ -18,11 +18,13 @@ const int Target_Water_high = 23;
 int Light_value = 0;
 int Pump_value = 0;
 int n = 0;
+int A = 1;
 
 void setup () {
   pinMode(Light, OUTPUT);
   pinMode(Pump, OUTPUT);
   Serial.begin(9600);
+  Serial1.begin(9600);
   dht.begin();
 
   if (! rtc.begin()) {
@@ -63,35 +65,37 @@ void loop () {
   if (Water <= 0) {
     Water = 0;
   }
-  if ((now.hour() > 8) && (now.hour() < 19)) {
-    digitalWrite(Light, HIGH);
-    Light_value = 1;
-  } else {
-    digitalWrite(Light, LOW);
-    Light_value = 0;
-  }
 
-  if (n <= 3) {
-    if (Water < Target_Water_low) {
-      digitalWrite(Pump, HIGH);
-      delay(2000);
-      n = n + 1;
-      Pump_value = 1;
+  if (A == 1) {
+    if ((now.hour() > 8) && (now.hour() < 19)) {
+      digitalWrite(Light, HIGH);
+      Light_value = 1;
+    } else {
+      digitalWrite(Light, LOW);
+      Light_value = 0;
     }
-  } else {
-    digitalWrite(Pump, LOW);
-    delay(10000);
-    n = 0;
-    Pump_value = 0;
-  }
 
-  if (Water > Target_Water_high) {
-    digitalWrite(Pump, LOW);
-    n = 0;
-    Pump_value = 0;
-  }
+    if (n <= 3) {
+      if (Water < Target_Water_low) {
+        digitalWrite(Pump, HIGH);
+        delay(2000);
+        n = n + 1;
+        Pump_value = 1;
+      }
+    } else {
+      digitalWrite(Pump, LOW);
+      delay(10000);
+      n = 0;
+      Pump_value = 0;
+    }
 
-
+    if (Water > Target_Water_high) {
+      digitalWrite(Pump, LOW);
+      n = 0;
+      Pump_value = 0;
+    }
+  } 
+  
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print(now.year());
@@ -139,6 +143,35 @@ void loop () {
   }
   delay(5000);
 
+  if (Serial.available()) {
+    delay(3);
+    char c = Serial.read();
+    if (c == 'x') {
+      A = 1;
+    }
+    if (c == 'y') {
+      A = 0;
+    }
+    if (c == 'a') {
+      digitalWrite(Pump, HIGH);
+      delay(5000);
+      Pump_value = 1;
+    }
+    if (c == 'b') {
+      digitalWrite(Pump, LOW);
+      Pump_value = 0;
+    }
+    if (c == 'c') {
+      digitalWrite(Light, HIGH);
+      delay(5000);
+      Light_value = 1;
+    }
+    if (c == 'd') {
+      digitalWrite(Light, LOW);
+      Light_value = 0;
+    }
+  }
+
   Serial.print(temp);
   Serial.print(", ");
   Serial.print(humi);
@@ -147,5 +180,7 @@ void loop () {
   Serial.print(", ");
   Serial.print(Pump_value);
   Serial.print(", ");
-  Serial.println(Light_value);
+  Serial.print(Light_value);
+  Serial.print(", ");
+  Serial.println(A);
 }
