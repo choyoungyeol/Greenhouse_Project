@@ -53,7 +53,7 @@ void setup() {
   lcd.setCursor(0, 0);
   lcd.print("Vegetables Lab.");
   lcd.setCursor(0, 1);
-  lcd.print("By Cho YoungYeol");
+  lcd.print("By YoungYeol Cho");
   Serial.begin(9600);
   Wire.begin();
   dht.begin();
@@ -285,6 +285,8 @@ void loop() {
   } else {
     lcd.noBacklight();
   }
+  String data = String(lux) + ", " + String(temp) + ", " + String(humi) + ", " + String(VPD) + ", " + String(Water) + ", " + String(RainPin_value) + ", " + String(Fan_out_value);
+  Serial.println(data);
 }
 
 float dewPoint(float temp, float humi) {
